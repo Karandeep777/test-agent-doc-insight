@@ -1,0 +1,18 @@
+{
+  "name": "Integration - Q&A with RAG Retrieval",
+  "description": "Tests the end-to-end workflow for Q&A: uploading a TXT file, asking a question, and verifying that the answer uses both document and RAG context.",
+  "test_type": "integration",
+  "input": "A valid TXT file, user_consent=True, task_type='qa', additional_params={'question': 'What is the main topic?'}.",
+  "output": "A JSON response with success=True and a result containing an answer, citations, and confidence.",
+  "success_criteria": [
+    "response['success'] is True",
+    "'answer' in response['result']",
+    "'citations' in response['result']",
+    "'confidence' in response['result']"
+  ],
+  "error_scenarios": [
+    "RAG retrieval failure",
+    "LLM call failure",
+    "Missing question in additional_params"
+  ]
+}
