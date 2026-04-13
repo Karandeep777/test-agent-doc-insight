@@ -1,0 +1,54 @@
+=== PYTEST EXECUTION LOG ===
+
+Exit Code: 1
+
+STDOUT:
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /tmp/aba_venv_cache/venv_9a93b84f33733768e99f9c11a4f40edc/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.15', 'Platform': 'Linux-5.15.0-1102-azure-x86_64-with-glibc2.41', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'asyncio': '1.3.0', 'anyio': '4.13.0', 'json-report': '1.5.0', 'metadata': '3.1.1'}}
+rootdir: /tmp/test_venv_exec_qu2rby7s
+configfile: pytest.ini
+plugins: asyncio-1.3.0, anyio-4.13.0, json-report-1.5.0, metadata-3.1.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 4 items
+
+test_agent.py::TestEntityExtractionFunctional::test_functional_entity_extraction_from_docx PASSED [ 25%]
+test_agent.py::TestEntityExtractionFunctional::test_entity_extraction_file_parsing_error PASSED [ 50%]
+test_agent.py::TestEntityExtractionFunctional::test_entity_extraction_llm_call_failure PASSED [ 75%]
+test_agent.py::TestEntityExtractionFunctional::test_entity_extraction_malformed_entities_output FAILED [100%]
+
+=================================== FAILURES ===================================
+_ TestEntityExtractionFunctional.test_entity_extraction_malformed_entities_output _
+
+self = <test_agent.TestEntityExtractionFunctional object at 0x7f9a104dec50>
+sample_docx_file = <_io.BytesIO object at 0x7f9a10a5c090>
+mock_malformed_entities = <MagicMock id='140299681462288'>
+
+    def test_entity_extraction_malformed_entities_output(self, sample_docx_file, mock_malformed_entities):
+        """
+        Functional test: Simulates a malformed entities output (missing confidence/citation).
+        """
+        response = get_entity_extraction_response(
+            file_obj=sample_docx_file,
+            user_consent=True,
+            task_type='entities',
+            additional_params=None,
+            extractor=mock_malformed_entities
+        )
+        assert response['success'] is True, "Expected success=True even if output is malformed"
+        assert isinstance(response['result'], list), "Expected result to be a list"
+        for entity in response['result']:
+>           assert 'confidence' in entity and 'citation' in entity, "Malformed entity: missing confidence or citation"
+E           AssertionError: Malformed entity: missing confidence or citation
+E           assert ('confidence' in {'entity': 'Acme Corp'})
+
+test_agent.py:148: AssertionError
+--------------------------------- JSON report ----------------------------------
+report saved to: /tmp/test_venv_exec_qu2rby7s/pytest_report.json
+=========================== short test summary info ============================
+FAILED test_agent.py::TestEntityExtractionFunctional::test_entity_extraction_malformed_entities_output
+========================= 1 failed, 3 passed in 0.05s ==========================
+
+
+STDERR:
