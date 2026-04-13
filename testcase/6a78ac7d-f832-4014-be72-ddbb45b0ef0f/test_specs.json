@@ -1,0 +1,17 @@
+{
+  "name": "Functional - Upload PDF and Get Summary",
+  "description": "Validates that uploading a supported PDF file with user consent and task_type 'summary' returns a hierarchical summary as specified.",
+  "test_type": "functional",
+  "input": "A valid PDF file, user_consent=True, task_type='summary', no additional_params.",
+  "output": "A JSON response with success=True and a result containing a summary with one-liner, paragraph, and full summary.",
+  "success_criteria": [
+    "response['success'] is True",
+    "'summary' in response['result']",
+    "response['result']['summary'] contains expected summary structure"
+  ],
+  "error_scenarios": [
+    "File parsing error",
+    "LLM call failure",
+    "Missing summary in result"
+  ]
+}
