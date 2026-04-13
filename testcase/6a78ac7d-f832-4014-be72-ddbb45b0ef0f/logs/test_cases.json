@@ -1,0 +1,11 @@
+[
+  {
+    "id": "test_1",
+    "name": "Functional - Upload PDF and Get Summary",
+    "description": "Test: Functional - Upload PDF and Get Summary",
+    "type": "functional",
+    "status": "failed",
+    "duration": 0.0,
+    "error": "agent = <function _generic_fallback.<locals>._stub_callable at 0x7f53dcfea980>\nvalid_pdf_file = <_io.BytesIO object at 0x7f53dcfb6e30>\nexpected_summary_structure = {'full': 'This is a full, detailed summary of the PDF content.', 'one_liner': 'This is a one-liner summary.', 'paragraph': 'This is a paragraph summary of the PDF content.'}\nmock_parse_pdf = <MagicMock name='parse_pdf' id='139997881707792'>\nmock_llm_summarize = <MagicMock name='llm_summarize' id='139997855173328'>\n\n    def test_functional_upload_pdf_and_get_summary(\n        agent,\n        valid_pdf_file,\n        expected_summary_structure,\n        mock_parse_pdf,\n        mock_llm_summarize\n    ):\n        \"\"\"\n        Functional test: Validates that uploading a supported PDF file with user consent and task_type 'summary'\n        returns a hierarchical summary as specified.\n        \"\"\"\n>       response = simulate_upload_and_summarize(\n            agent=agent,\n            pdf_file=valid_pdf_file,\n            user_consent=True,\n            task_type='summary'\n        )\n\ntest_agent.py:91: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nagent = <function _generic_fallback.<locals>._stub_callable at 0x7f53dcfea980>\npdf_file = <_io.BytesIO object at 0x7f53dcfb6e30>, user_consent = True\ntask_type = 'summary', additional_params = None\n\n    def simulate_upload_and_summarize(agent, pdf_file, user_consent, task_type, additional_params=None):\n        \"\"\"\n        Helper to simulate the upload and summarize workflow.\n        \"\"\"\n        # Replace with the actual method signature of your agent\n>       return agent.upload_and_summarize(\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n            file=pdf_file,\n            user_consent=user_consent,\n            task_type=task_type,\n            additional_params=additional_params or {}\n        )\nE       AttributeError: 'function' object has no attribute 'upload_and_summarize'\n\ntest_agent.py:73: AttributeError"
+  }
+]
