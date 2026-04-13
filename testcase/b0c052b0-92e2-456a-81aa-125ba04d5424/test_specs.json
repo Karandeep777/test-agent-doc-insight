@@ -1,0 +1,13 @@
+{
+  "name": "Functional - Malformed Additional Params JSON",
+  "description": "Validates that malformed JSON in additional_params returns a clear error and does not process the file.",
+  "test_type": "functional",
+  "input": "A valid TXT file, user_consent=True, task_type='qa', additional_params='not_a_json_string'.",
+  "output": "A JSON response with success=False, error_code='MALFORMED_JSON', and a relevant error message.",
+  "success_criteria": [
+    "response['success'] is False",
+    "response['error_code'] == 'MALFORMED_JSON'",
+    "'malformed json' in response['error_message'].lower()"
+  ],
+  "error_scenarios": null
+}
