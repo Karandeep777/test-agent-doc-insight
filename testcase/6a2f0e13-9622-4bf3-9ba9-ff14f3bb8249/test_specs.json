@@ -1,0 +1,13 @@
+{
+  "name": "Integration - Consent Required Enforcement",
+  "description": "Checks that the agent enforces user consent and returns an error if user_consent is False.",
+  "test_type": "integration",
+  "input": "A valid TXT file, user_consent=False, task_type='summary'.",
+  "output": "A JSON response with success=False, error_code='CONSENT_REQUIRED', and a relevant error message.",
+  "success_criteria": [
+    "response['success'] is False",
+    "response['error_code'] == 'CONSENT_REQUIRED'",
+    "'consent' in response['error_message'].lower()"
+  ],
+  "error_scenarios": null
+}
