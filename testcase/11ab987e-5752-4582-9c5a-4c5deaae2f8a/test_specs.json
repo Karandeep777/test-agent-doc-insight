@@ -1,0 +1,16 @@
+{
+  "name": "Integration - Document Comparison",
+  "description": "Validates that uploading two supported files with task_type 'compare' returns a structured comparison highlighting differences.",
+  "test_type": "integration",
+  "input": "Two valid files (e.g., PDF and DOCX), user_consent=True, task_type='compare', no additional_params.",
+  "output": "A JSON response with success=True and a result containing a comparison.",
+  "success_criteria": [
+    "response['success'] is True",
+    "'comparison' in response['result']"
+  ],
+  "error_scenarios": [
+    "File parsing error for either file",
+    "LLM call failure",
+    "Missing comparison in result"
+  ]
+}
