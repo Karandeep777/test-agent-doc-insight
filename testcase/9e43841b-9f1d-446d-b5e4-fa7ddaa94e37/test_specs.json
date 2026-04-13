@@ -1,0 +1,13 @@
+{
+  "name": "Functional - Unsupported File Type Error",
+  "description": "Ensures that uploading an unsupported file type returns a clear error message and does not process the file.",
+  "test_type": "functional",
+  "input": "A file with an unsupported extension (e.g., .exe), user_consent=True, task_type='summary'.",
+  "output": "A JSON response with success=False, error_code='UNSUPPORTED_FORMAT', and a user-friendly error message.",
+  "success_criteria": [
+    "response['success'] is False",
+    "response['error_code'] == 'UNSUPPORTED_FORMAT'",
+    "'file format is not supported' in response['error_message'].lower()"
+  ],
+  "error_scenarios": null
+}
