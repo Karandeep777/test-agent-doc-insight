@@ -1,0 +1,12 @@
+{
+  "name": "Integration - Health Check Endpoint",
+  "description": "Ensures the /health endpoint returns a healthy status.",
+  "test_type": "integration",
+  "input": "GET request to /health endpoint.",
+  "output": "A JSON response with success=True and status='ok'.",
+  "success_criteria": [
+    "response['success'] is True",
+    "response['status'] == 'ok'"
+  ],
+  "error_scenarios": null
+}
