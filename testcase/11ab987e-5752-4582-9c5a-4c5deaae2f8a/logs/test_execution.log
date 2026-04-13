@@ -1,0 +1,66 @@
+=== PYTEST EXECUTION LOG ===
+
+Exit Code: 1
+
+STDOUT:
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /tmp/aba_venv_cache/venv_9a93b84f33733768e99f9c11a4f40edc/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.15', 'Platform': 'Linux-5.15.0-1102-azure-x86_64-with-glibc2.41', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'asyncio': '1.3.0', 'anyio': '4.13.0', 'json-report': '1.5.0', 'metadata': '3.1.1'}}
+rootdir: /tmp/test_venv_exec_ajm4lj8q
+configfile: pytest.ini
+plugins: asyncio-1.3.0, anyio-4.13.0, json-report-1.5.0, metadata-3.1.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+test_agent.py::test_integration_document_comparison FAILED               [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_integration_document_comparison _____________________
+
+agent = <function _generic_fallback.<locals>._stub_callable at 0x7f5fb890f4c0>
+mock_file_parser = <MagicMock name='file_parser' id='140048847838416'>
+mock_llm_compare = <MagicMock name='llm_compare' id='140048781264272'>
+
+    def test_integration_document_comparison(agent, mock_file_parser, mock_llm_compare):
+        """
+        Integration test:
+        Validates that uploading two supported files with task_type 'compare' returns a structured comparison highlighting differences.
+        """
+        # Arrange
+        file1 = make_mock_file("file1.pdf")
+        file2 = make_mock_file("file2.docx")
+        user_consent = True
+        task_type = "compare"
+        additional_params = None
+    
+        # Act
+        # Replace 'compare_documents' with the actual method to invoke
+>       response = agent.compare_documents(
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+            files=[file1, file2],
+            user_consent=user_consent,
+            task_type=task_type,
+            additional_params=additional_params
+        )
+E       AttributeError: 'function' object has no attribute 'compare_documents'
+
+test_agent.py:58: AttributeError
+=============================== warnings summary ===============================
+test_agent.py::test_integration_document_comparison
+  /tmp/aba_venv_cache/venv_9a93b84f33733768e99f9c11a4f40edc/lib/python3.11/site-packages/starlette/formparsers.py:12: PendingDeprecationWarning: Please use `import python_multipart` instead.
+    import multipart
+
+test_agent.py::test_integration_document_comparison
+  /tmp/aba_venv_cache/venv_9a93b84f33733768e99f9c11a4f40edc/lib/python3.11/site-packages/PyPDF2/__init__.py:21: DeprecationWarning: PyPDF2 is deprecated. Please move to the pypdf library instead.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+--------------------------------- JSON report ----------------------------------
+report saved to: /tmp/test_venv_exec_ajm4lj8q/pytest_report.json
+=========================== short test summary info ============================
+FAILED test_agent.py::test_integration_document_comparison - AttributeError: ...
+======================== 1 failed, 2 warnings in 1.23s =========================
+
+
+STDERR:
