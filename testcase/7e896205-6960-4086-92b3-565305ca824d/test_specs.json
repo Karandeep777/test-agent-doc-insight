@@ -1,0 +1,17 @@
+{
+  "name": "Functional - Entity Extraction from DOCX",
+  "description": "Checks that entity extraction works for a DOCX file, returning entities with confidence scores and citations.",
+  "test_type": "functional",
+  "input": "A valid DOCX file, user_consent=True, task_type='entities', no additional_params.",
+  "output": "A JSON response with success=True and a result containing a list of extracted entities.",
+  "success_criteria": [
+    "response['success'] is True",
+    "type(response['result']) is list",
+    "Each entity in response['result'] contains confidence score and citation"
+  ],
+  "error_scenarios": [
+    "File parsing error",
+    "LLM call failure",
+    "Malformed entities output"
+  ]
+}
