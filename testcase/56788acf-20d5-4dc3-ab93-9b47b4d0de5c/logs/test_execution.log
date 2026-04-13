@@ -1,0 +1,140 @@
+=== PYTEST EXECUTION LOG ===
+
+Exit Code: 1
+
+STDOUT:
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /tmp/aba_venv_cache/venv_9a93b84f33733768e99f9c11a4f40edc/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.15', 'Platform': 'Linux-5.15.0-1102-azure-x86_64-with-glibc2.41', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'asyncio': '1.3.0', 'anyio': '4.13.0', 'json-report': '1.5.0', 'metadata': '3.1.1'}}
+rootdir: /tmp/test_venv_exec_a6qzikc3
+configfile: pytest.ini
+plugins: asyncio-1.3.0, anyio-4.13.0, json-report-1.5.0, metadata-3.1.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 4 items
+
+test_agent.py::test_integration_qa_with_rag_retrieval FAILED             [ 25%]
+test_agent.py::test_integration_qa_with_rag_retrieval_rag_failure FAILED [ 50%]
+test_agent.py::test_integration_qa_with_rag_retrieval_llm_failure FAILED [ 75%]
+test_agent.py::test_integration_qa_with_rag_retrieval_missing_question FAILED [100%]
+
+=================================== FAILURES ===================================
+____________________ test_integration_qa_with_rag_retrieval ____________________
+
+agent = <function _generic_fallback.<locals>._stub_callable at 0x7feeff999080>
+sample_txt_file = <_io.StringIO object at 0x7feeed0bc5e0>
+
+    def test_integration_qa_with_rag_retrieval(agent, sample_txt_file):
+        """
+        Integration test: End-to-end Q&A workflow with RAG retrieval.
+        Uploads a TXT file, asks a question, and verifies the answer uses both document and RAG context.
+        """
+        # Arrange
+        user_consent = True
+        task_type = 'qa'
+        additional_params = {'question': 'What is the main topic?'}
+        # Simulate file upload and question
+        # The agent is expected to use the RAG retriever and LLM (both mocked)
+        # Act
+>       response = agent.handle_request(
+                   ^^^^^^^^^^^^^^^^^^^^
+            file=sample_txt_file,
+            user_consent=user_consent,
+            task_type=task_type,
+            additional_params=additional_params
+        )
+E       AttributeError: 'function' object has no attribute 'handle_request'
+
+test_agent.py:58: AttributeError
+______________ test_integration_qa_with_rag_retrieval_rag_failure ______________
+
+agent = <function _generic_fallback.<locals>._stub_callable at 0x7feeff998a40>
+sample_txt_file = <_io.StringIO object at 0x7feeed1e3be0>
+
+    def test_integration_qa_with_rag_retrieval_rag_failure(agent, sample_txt_file):
+        """
+        Integration test: Simulate RAG retrieval failure and verify error handling.
+        """
+        user_consent = True
+        task_type = 'qa'
+        additional_params = {'question': 'What is the main topic?'}
+        with patch("your_module.RAGRetriever") as MockRetriever:
+            instance = MockRetriever.return_value
+            instance.retrieve.side_effect = Exception("RAG retrieval failed")
+>           response = agent.handle_request(
+                       ^^^^^^^^^^^^^^^^^^^^
+                file=sample_txt_file,
+                user_consent=user_consent,
+                task_type=task_type,
+                additional_params=additional_params
+            )
+E           AttributeError: 'function' object has no attribute 'handle_request'
+
+test_agent.py:80: AttributeError
+______________ test_integration_qa_with_rag_retrieval_llm_failure ______________
+
+agent = <function _generic_fallback.<locals>._stub_callable at 0x7feeeceb4e00>
+sample_txt_file = <_io.StringIO object at 0x7feeed0bd5a0>
+
+    def test_integration_qa_with_rag_retrieval_llm_failure(agent, sample_txt_file):
+        """
+        Integration test: Simulate LLM call failure and verify error handling.
+        """
+        user_consent = True
+        task_type = 'qa'
+        additional_params = {'question': 'What is the main topic?'}
+        with patch("your_module.llm_call") as mock_llm_call:
+            mock_llm_call.side_effect = Exception("LLM call failed")
+>           response = agent.handle_request(
+                       ^^^^^^^^^^^^^^^^^^^^
+                file=sample_txt_file,
+                user_consent=user_consent,
+                task_type=task_type,
+                additional_params=additional_params
+            )
+E           AttributeError: 'function' object has no attribute 'handle_request'
+
+test_agent.py:99: AttributeError
+___________ test_integration_qa_with_rag_retrieval_missing_question ____________
+
+agent = <function _generic_fallback.<locals>._stub_callable at 0x7feeeceb5080>
+sample_txt_file = <_io.StringIO object at 0x7feeed0bd630>
+
+    def test_integration_qa_with_rag_retrieval_missing_question(agent, sample_txt_file):
+        """
+        Integration test: Missing question in additional_params should result in error.
+        """
+        user_consent = True
+        task_type = 'qa'
+        additional_params = {}  # No question provided
+>       response = agent.handle_request(
+                   ^^^^^^^^^^^^^^^^^^^^
+            file=sample_txt_file,
+            user_consent=user_consent,
+            task_type=task_type,
+            additional_params=additional_params
+        )
+E       AttributeError: 'function' object has no attribute 'handle_request'
+
+test_agent.py:116: AttributeError
+=============================== warnings summary ===============================
+test_agent.py::test_integration_qa_with_rag_retrieval
+  /tmp/aba_venv_cache/venv_9a93b84f33733768e99f9c11a4f40edc/lib/python3.11/site-packages/starlette/formparsers.py:12: PendingDeprecationWarning: Please use `import python_multipart` instead.
+    import multipart
+
+test_agent.py::test_integration_qa_with_rag_retrieval
+  /tmp/aba_venv_cache/venv_9a93b84f33733768e99f9c11a4f40edc/lib/python3.11/site-packages/PyPDF2/__init__.py:21: DeprecationWarning: PyPDF2 is deprecated. Please move to the pypdf library instead.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+--------------------------------- JSON report ----------------------------------
+report saved to: /tmp/test_venv_exec_a6qzikc3/pytest_report.json
+=========================== short test summary info ============================
+FAILED test_agent.py::test_integration_qa_with_rag_retrieval - AttributeError...
+FAILED test_agent.py::test_integration_qa_with_rag_retrieval_rag_failure - At...
+FAILED test_agent.py::test_integration_qa_with_rag_retrieval_llm_failure - At...
+FAILED test_agent.py::test_integration_qa_with_rag_retrieval_missing_question
+======================== 4 failed, 2 warnings in 1.23s =========================
+
+
+STDERR:
